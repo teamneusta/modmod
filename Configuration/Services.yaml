@@ -1,0 +1,30 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Neusta\Modmod\:
+    resource: '../Classes/*'
+
+  dashboard.buttons.neusta:
+    class: 'TYPO3\CMS\Dashboard\Widgets\Provider\ButtonProvider'
+    arguments:
+      $title: 'Neusta Button'
+      $link: 'https://team-neusta.de'
+      $target: '_blank'
+
+  dashboard.widget.neusta.modmod:
+    class: 'Neusta\Modmod\Widgets\LatestCommentsWidget'
+    arguments:
+      $dataProvider: '@Neusta\Modmod\Widgets\Provider\LatestCommentsDataProvider'
+      $view: '@dashboard.views.widget'
+    tags:
+      - name: dashboard.widget
+        identifier: 'modmod_pwComments_list'
+        groupNames: 'modModGroup'
+        title: 'LLL:EXT:modmod/Resources/Private/Language/locallang.xlf:widgets.neustmoderate_pwComments_list.title'
+        description: 'LLL:EXT:modmod/Resources/Private/Language/locallang.xlf:widgets.neustmoderate_pwComments_list.description'
+        iconIdentifier: 'tx-modmod-widgets'
+        height: 'large'
+        width: 'medium'

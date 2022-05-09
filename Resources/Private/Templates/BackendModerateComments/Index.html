@@ -1,0 +1,213 @@
+<f:be.container
+        includeRequireJsModules="{0:'TYPO3/CMS/Backend/Modal'}"
+        includeCssFiles="{0: '{f:uri.resource(path:\'CSS/list-mod.css\')}'}"
+>
+    <div class="module" data-module-name="{moduleName}">
+        <div class="module-loading-indicator"></div>
+        <div class="module-docheader">
+            <div class="module-docheader-bar module-docheader-bar-buttons">
+                <div class="module-docheader-bar-column-left">
+                    <div class="btn-toolbar" role="toolbar" aria-label="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module-body t3js-module-body">
+            <div class="constraints">
+                <f:be.pageRenderer includeRequireJsModules="{0: 'TYPO3/CMS/Backend/DateTimePicker'}" />
+                <form action=""
+                      method="post"
+                      id="BackendModerateCommentsController"
+                      name="webCommentsModerateForm"
+                      class="form-inline form-inline-spaced">
+                    <div class="form-group">
+                        <label class="form-label" for="depth">{f:translate(key: 'mod.modmod.constraints.depth')}</label>
+                        <f:form.select
+                                name="depth"
+                                id="depth"
+                                options="{
+                                            0: '{f:translate(key: \'mod.modmod.constraints.depth.level0\')}',
+                                            1: '{f:translate(key: \'mod.modmod.constraints.depth.level1\')}',
+                                            2: '{f:translate(key: \'mod.modmod.constraints.depth.level2\')}',
+                                            3: '{f:translate(key: \'mod.modmod.constraints.depth.level3\')}'
+                                        }"
+
+                                value="{constraints.depth}"
+                                class="form-control"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <f:form.submit id="submit-constraint" value="{f:translate(key: 'mod.modmod.constraints.apply')}" class="btn btn-default" />
+                    </div>
+                </form>
+
+            </div>
+
+            <f:if condition="{tree -> f:count()} > 1">
+                <f:then>
+                    <div class="table-fit">
+                        <table class="table table-striped table-hover" id="moderateCommentsTable">
+                            <thead>
+                            <tr>
+                                <th>{f:translate(key: 'mod.modmod.page')}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <f:variable name="depth" value="0" />
+                            <f:render section="renderTreeLevel"
+                                      arguments="{
+                                  treeLevel: tree,
+                                  depth: depth,
+                                  addPageIdPrefix: addPageIdPrefix,
+                                  comments: comments,
+                                  tableName: tableName,
+                                  moduleUri: moduleUri,
+                                  commands: commands
+                              }" />
+                            </tbody>
+                        </table>
+                    </div>
+                </f:then>
+                <f:else>
+                    <f:translate key="mod.modmod.noPageSelected" />
+                </f:else>
+            </f:if>
+
+        </div>
+    </div>
+</f:be.container>
+<f:section name="renderTreeLevel">
+    <f:variable name="commentCount">
+        <f:count>{comments.{treeLevel.uid}}</f:count>
+    </f:variable>
+    <tr class="{f:if(condition: '{commentCount} > 0', then:'has-comments')}">
+        <td>
+            <f:render section="treeline" arguments="{iteration: iteration, depth: depth}" />
+            <core:iconForRecord table="pages" row="{treeLevel}" />
+            <f:if condition="{addPageIdPrefix}">
+                [{treeLevel.uid}]
+            </f:if>
+            {treeLevel.title}
+        </td>
+    </tr>
+    <f:if condition="{commentCount} > 0 || {treeLevel._children -> f:count()} > 0">
+        <tr>
+            <f:if condition="{commentCount} > 0">
+                <td class="col-mod-table">
+                    <div class="page-comment-container table-fit">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>{f:translate(key: 'mod.modmod.actions', extensionName: 'modmod')}</th>
+                                <th>{f:translate(key: 'mod.modmod.visibility', extensionName: 'modmod')}</th>
+                                <th>{f:translate(key: 'LLL:EXT:pw_comments/Resources/Private/Language/locallang_db.xlf:general.crdate', extensionName: 'pw_comments')}</th>
+                                <th>{f:translate(key: 'LLL:EXT:pw_comments/Resources/Private/Language/locallang_db.xlf:tx_pwcomments_domain_model_comment.author', extensionName: 'pw_comments')}</th>
+                                <th>{f:translate(key: 'LLL:EXT:pw_comments/Resources/Private/Language/locallang_db.xlf:tx_pwcomments_domain_model_comment.message', extensionName: 'pw_comments')}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <f:for each="{comments.{treeLevel.uid}}" as="comment">
+                                <f:if condition="{comment.hidden}">
+                                    <f:then>
+                                        <f:variable name="title">{f:translate(key:'mod.modmod.action.publish')}</f:variable>
+                                        <f:variable name="command">{commands.enable}</f:variable>
+                                        <f:variable name="iconIdentifier">actions-edit-unhide</f:variable>
+                                    </f:then>
+                                    <f:else>
+                                        <f:variable name="title">{f:translate(key:'mod.modmod.action.unpublish')}</f:variable>
+                                        <f:variable name="command">{commands.disable}</f:variable>
+                                        <f:variable name="iconIdentifier">actions-edit-hide</f:variable>
+                                    </f:else>
+                                </f:if>
+
+                                <tr>
+                                    <td class="col-actions">
+                                        <f:link.action
+                                                controller="BackendModerateComments"
+                                                action="toggleVisibility"
+                                                arguments="{comment: '{comment.uid}', command: '{command}'}"
+                                                class="btn btn-default"
+                                                title="{title}"
+                                        >
+                                            <core:icon identifier="{iconIdentifier}" />
+                                        </f:link.action>
+                                        <f:link.action
+                                                controller="BackendModerateComments"
+                                                action="delete"
+                                                arguments="{comment: '{comment.uid}'}"
+                                                class="btn btn-default   t3js-modal-trigger"
+                                                additionalAttributes="{
+                                                data-title: '{f:translate(key:\'LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:delete\')}',
+                                                data-content: '{f:translate(key: \'mod.modmod.action.delete.confirm\')}'
+                                            }"
+                                        >
+                                            <core:icon identifier="actions-delete" />
+                                        </f:link.action>
+
+                                    </td>
+                                    <f:if condition="{comment.hidden}">
+                                        <f:then>
+                                            <td class="col-visibility" title="{f:translate(key: 'mod.modmod.visibility.hidden')}">
+                                                <core:icon identifier="actions-close" size="default" />
+                                            </td>
+                                        </f:then>
+                                        <f:else>
+                                            <td class="col-visibility" title="{f:translate(key: 'mod.modmod.visibility.visible')}">
+                                                <span class="success"><core:icon identifier="actions-check" size="default" alternativeMarkupIdentifier="inline" /></span>
+                                            </td>
+                                        </f:else>
+                                    </f:if>
+                                    <td class="col-date">
+                                        <f:format.date date="{comment.crdate}" format="D d.m.Y H:i:s" />
+                                    </td>
+                                    <td class="col-author" title="{comment.author_name} ({comment.author_mail})">{comment.author_name} ({comment.author_mail})</td>
+                                    <td class="col-message">
+                                        <f:format.nl2br>{comment.message}</f:format.nl2br>
+                                    </td>
+                                </tr>
+                            </f:for>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </f:if>
+            <f:if condition="{treeLevel._children -> f:count()} > 0">
+                <f:variable name="depth" value="{depth + 1}" />
+            </f:if>
+            <f:for each="{treeLevel._children}" as="pageRecord" iteration="it">
+                <f:render section="renderTreeLevel"
+                          arguments="{
+                        treeLevel: pageRecord,
+                        depth: depth,
+                        addPageIdPrefix: addPageIdPrefix,
+                        iteration: it,
+                        comments: comments,
+                        tableName: tableName,
+                        moduleUri: moduleUri,
+                        commands: commands
+                      }" />
+            </f:for>
+        </tr>
+    </f:if>
+</f:section>
+
+<f:section name="treeline">
+    <f:switch expression="{depth}">
+        <f:case value="1">
+            <f:render section="treeline-end" arguments="{iteration: iteration, depth: depth}" />
+        </f:case>
+        <f:case value="2">
+            <span class="treeline-icon treeline-icon-line"></span>
+            <f:render section="treeline-end" arguments="{iteration: iteration, depth: depth}" />
+        </f:case>
+        <f:case value="3">
+            <span class="treeline-icon treeline-icon-line"></span>
+            <span class="treeline-icon treeline-icon-line"></span>
+            <f:render section="treeline-end" arguments="{iteration: iteration, depth: depth}" />
+        </f:case>
+    </f:switch>
+</f:section>
+<f:section name="treeline-end">
+    <span class="treeline-icon treeline-icon-join{f:if(condition: '{iteration.isLast}', then: 'bottom')}"></span>
+</f:section>

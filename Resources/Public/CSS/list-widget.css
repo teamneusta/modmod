@@ -1,0 +1,10 @@
+
+.modmod-widget-table tbody tr:nth-child(odd):hover>td,
+.modmod-widget-table tbody tr:nth-child(odd):hover + tr>td
+{
+    background-color: #ededed;
+}
+
+.modmod-widget-table tbody tr:nth-child(2n+1)>td{
+    border-top-width: 2px;
+}

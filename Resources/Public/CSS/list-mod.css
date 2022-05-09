@@ -1,0 +1,59 @@
+.table-fit {
+    border-left-width: 0;
+}
+
+.table-fit > .table tr {
+    border-left: 1px solid #ccc;
+}
+
+.table td.col-mod-table {
+    padding: 0 0 0 13px;
+}
+
+.table-fit > .table tr > td {
+    white-space: normal;
+}
+.table-fit > .table td.col-message {
+    /*white-space: normal;*/
+}
+
+.table-fit > .table td.col-actions {
+    width: 76px;
+}
+
+.table-fit > .table td.col-visibility {
+    width: 51px;
+    text-align: center;
+}
+
+.table-fit > .table td.col-date {
+    width: 150px;
+}
+
+.table-fit > .table td.col-author {
+    max-width: 200px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.table tr.has-comments:hover > td,
+.table tr.has-comments:hover + tr > td.col-mod-table {
+    background-color: #ededed;
+    border-left: 1px solid;
+    border-color: #a0a0a0;
+}
+
+.table tr.has-comments:hover + tr > td.col-mod-table {
+    border-top-color: transparent;
+}
+
+.table tr.has-comments:hover + tr > td.col-mod-table > .table-fit > .table tr {
+    border-left: 1px dotted #666666;
+}
+
+
+.success .icon-color {
+    fill: #4c7e3a;
+
+}
+

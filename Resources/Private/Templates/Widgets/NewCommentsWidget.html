@@ -1,0 +1,62 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Widget/Widget" />
+<f:section name="main">
+    <f:if condition="{items}">
+        <f:then>
+            <table class="table  table-vertical-top  modmod-widget-table">
+                <thead>
+                <tr>
+                    <th>
+                        {f:translate(key: 'LLL:EXT:pw_comments/Resources/Private/Language/locallang_db.xlf:general.crdate', extensionName: 'pw_comments')}
+                    </th>
+                    <th>
+                        {f:translate(key: 'LLL:EXT:pw_comments/Resources/Private/Language/locallang_db.xlf:tx_pwcomments_domain_model_comment.author', extensionName: 'pw_comments')}
+                    </th>
+                    <th>{f:translate(key: 'mod.modmod.actions', extensionName: 'modmod')}</th>
+                </tr>
+                <tr>
+                    <th colspan="3">{f:translate(key: 'LLL:EXT:pw_comments/Resources/Private/Language/locallang_db.xlf:tx_pwcomments_domain_model_comment.message', extensionName: 'pw_comments')}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <f:for each="{items}" as="comment">
+                    <tr>
+                        <td>
+                            <f:format.date
+                                    date="{comment.crdate}"
+                                    format="{f:translate(key: 'widget.modmod.dateFormat', extensionName: 'modmod')}" />
+                        </td>
+                        <td>{comment.author_name} ({comment.author_mail})</td>
+                        <td>
+                            <f:be.link
+                                    class="btn btn-default"
+                                    additionalAttributes="{
+                                        data-navigationcomponentid: 'TYPO3/CMS/Backend/PageTree/PageTreeElement'
+                                    }"
+                                    route="{moduleName}"
+                                    parameters="{id: comment.pid}"
+                                    title="{f:translate(key: 'widget.modmod.openInModule', extensionName: 'modmod')}"
+                            >
+                                <core:icon identifier="actions-delete-edit" />
+                            </f:be.link>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <f:format.nl2br>{comment.message}</f:format.nl2br>
+                        </td>
+                    </tr>
+                </f:for>
+                </tbody>
+            </table>
+        </f:then>
+        <f:else>
+            {f:translate(key: 'widget.modmod.noResults', extensionName: 'modmod')}
+        </f:else>
+    </f:if>
+
+</f:section>
+<f:section name="footer">
+    <f:render partial="Widget/Button" arguments="{button: button}" />
+</f:section>
+</html>

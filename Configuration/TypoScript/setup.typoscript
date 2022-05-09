@@ -1,0 +1,15 @@
+module.tx_modmod {
+	view {
+		layoutRootPaths.100 = EXT:modmod/Resources/Private/Layouts/
+		templateRootPaths.100 = EXT:modmod/Resources/Private/Templates/
+		partialRootPaths.100 = EXT:modmod/Resources/Private/Partials/
+	}
+}
+
+module.tx_dashboard {
+	view {
+		templateRootPaths {
+			1651665180 = EXT:modmod/Resources/Private/Templates
+		}
+	}
+}
