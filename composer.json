@@ -1,5 +1,5 @@
 {
-  "name": "neusta/modmod",
+  "name": "teamneusta/modmod",
   "type": "typo3-cms-extension",
   "description": "Add-on to pw_comments to moderate comments across pages. This extension provides a dashboard widget and a web module.",
   "license": "GLP-2.0+",
