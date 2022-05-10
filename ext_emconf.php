@@ -27,5 +27,5 @@ $EM_CONF[$_EXTKEY] = [
     'author'           => 'Tobias Kretschmann',
     'author_email'     => 't.kretschmann@neusta.de',
     'author_company'   => 'team neusta GmbH',
-    'version'          => '1.0.1',
+    'version'          => '1.0.2',
 ];
