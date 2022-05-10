@@ -16,7 +16,7 @@ final class BackendUserUtility
      */
     public static function getValueFromBackendUserConfig(string $pluginName, string $key)
     {
-        $pluginUserConfig = self::getBackendUser()->uc[$pluginName] ?? [];
+        $pluginUserConfig = self::getBackendUser()->uc['moduleData'][$pluginName] ?? [];
 
         return $pluginUserConfig[$key] ?? null;
     }
@@ -27,7 +27,7 @@ final class BackendUserUtility
      */
     public static function storeUcValue(string $pluginName, $value): void
     {
-        self::getBackendUser()->writeUC([$pluginName => $value]);
+        self::getBackendUser()->pushModuleData($pluginName, $value);
     }
 
     public static function getShowPageIdWithTitleOption(): bool

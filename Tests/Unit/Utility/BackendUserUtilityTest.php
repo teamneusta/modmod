@@ -26,7 +26,7 @@ final class BackendUserUtilityTest extends UnitTestCase
     public function getValueFromBackendUserConfigShouldReturnValueForGivenKeyInGivenPluginNamespace(): void
     {
         $GLOBALS['BE_USER'] = new BackendUserAuthentication();
-        $GLOBALS['BE_USER']->uc[$this->pluginNamespace]['foo'] = 'bar';
+        $GLOBALS['BE_USER']->uc['moduleData'][$this->pluginNamespace]['foo'] = 'bar';
 
         self::assertSame('bar', BackendUserUtility::getValueFromBackendUserConfig($this->pluginNamespace, 'foo'));
     }
@@ -39,7 +39,7 @@ final class BackendUserUtilityTest extends UnitTestCase
         $valueToStore = ['user' => 'setting'];
 
         $beUser = $this->prophesize(BackendUserAuthentication::class);
-        $beUser->writeUC([$this->pluginNamespace => $valueToStore])->shouldBeCalled();
+        $beUser->pushModuleData($this->pluginNamespace, $valueToStore)->shouldBeCalled();
         $GLOBALS['BE_USER'] = $beUser->reveal();
 
         BackendUserUtility::storeUcValue($this->pluginNamespace, $valueToStore);

@@ -33,7 +33,7 @@ final class FormValueProviderTest extends UnitTestCase
         $GLOBALS['TYPO3_REQUEST'] = (new ServerRequest())->withParsedBody(null);
 
         $beUser = $this->prepareBeUserWithConfig($ucValueName, $ucStoredValue);
-        $beUser->writeUC(Argument::any())->shouldNotBeCalled();
+        $beUser->pushModuleData(Argument::any())->shouldNotBeCalled();
 
         $formValueProvider = new FormValueProvider();
 
@@ -51,7 +51,7 @@ final class FormValueProviderTest extends UnitTestCase
         $GLOBALS['TYPO3_REQUEST'] = (new ServerRequest())->withParsedBody(null);
 
         $beUser = $this->prepareBeUserWithConfig($ucValueName, $ucStoredValue);
-        $beUser->writeUC(Argument::any())->shouldNotBeCalled();
+        $beUser->pushModuleData(Argument::any())->shouldNotBeCalled();
 
         $formValueProvider = new FormValueProvider();
 
@@ -69,7 +69,7 @@ final class FormValueProviderTest extends UnitTestCase
 
         $this->prepareServerRequestWithParsedBody($ucValueName, $postRequestValue);
         $beUser = $this->prepareBeUserWithConfig($ucValueName, $ucStoredValue);
-        $beUser->writeUC([$this->pluginNamespace => [$ucValueName => $postRequestValue]])->shouldBeCalled();
+        $beUser->pushModuleData($this->pluginNamespace, [$ucValueName => $postRequestValue])->shouldBeCalled();
 
         $formValueProvider = new FormValueProvider();
 
@@ -87,7 +87,7 @@ final class FormValueProviderTest extends UnitTestCase
 
         $this->prepareServerRequestWithParsedBody($ucValueName, $postRequestValue);
         $beUser = $this->prepareBeUserWithConfig($ucValueName, $ucStoredValue);
-        $beUser->writeUC(Argument::any())->shouldNotBeCalled();
+        $beUser->pushModuleData(Argument::any())->shouldNotBeCalled();
         $formValueProvider = new FormValueProvider();
 
         self::assertSame('sameValue', $formValueProvider->getStoredValue($this->pluginNamespace, $ucValueName));
@@ -102,7 +102,7 @@ final class FormValueProviderTest extends UnitTestCase
     {
         $beUser = $this->prophesize(BackendUserAuthentication::class);
         $GLOBALS['BE_USER'] = $beUser->reveal();
-        $GLOBALS['BE_USER']->uc[$this->pluginNamespace][$key] = $readValue;
+        $GLOBALS['BE_USER']->uc['moduleData'][$this->pluginNamespace][$key] = $readValue;
 
         return $beUser;
     }
