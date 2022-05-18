@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" product-name="modmod_widgets" target-language="de">
+    <header/>
+    <body>
+      <trans-unit id="mlang_tabs_tab" resname="mlang_tabs_tab" approved="yes">
+        <source>Comments</source>
+        <target state="final">Kommentare</target>
+      </trans-unit>
+      <trans-unit id="mlang_labels_tablabel" resname="mlang_labels_tablabel" approved="yes">
+        <source>Comments</source>
+        <target state="final">Kommentare</target>
+      </trans-unit>
+      <trans-unit id="mlang_labels_tabdescr" resname="mlang_labels_tabdescr" approved="yes">
+        <source>Moderate Comments from pw_comments extension</source>
+        <target state="final">Kommentare der pw_comments Erweiterung moderieren</target>
+      </trans-unit>
+      <trans-unit id="neustaGroup.title" approved="yes">
+        <source>neusta widgets</source>
+        <target state="final">neusta Widgets</target>
+      </trans-unit>
+      <trans-unit id="widgets.neustmoderate_pwComments_list.title" approved="yes">
+        <source>Moderate Comments</source>
+        <target state="final">Kommentare moderieren</target>
+      </trans-unit>
+      <trans-unit id="widgets.neustmoderate_pwComments_list.description" approved="yes">
+        <source>Adds an overview of new and hidden comments</source>
+        <target state="final">Fügt eine Übersicht neuer und versteckter Kommentare hinzu</target>
+      </trans-unit>
+      <trans-unit id="widget.modmod.noResults" approved="yes">
+        <source>No unmoderated comments! Good job! 👍</source>
+        <target state="final">Keine unmoderierten Kommentare! Gute Arbeit! 👍</target>
+      </trans-unit>
+      <trans-unit id="widget.modmod.dateFormat" approved="yes">
+        <source>D d.m.Y H:i:s</source>
+        <target state="final">D d.m.Y H:i:s</target>
+      </trans-unit>
+      <trans-unit id="widget.modmod.openInModule" approved="yes">
+        <source>Continue moderating in module.</source>
+        <target state="final">Moderieren im Modul fortsetzen.</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.constraints.depth" approved="yes">
+        <source>Depth</source>
+        <target state="final">Tiefe</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.constraints.apply" approved="yes">
+        <source>Apply</source>
+        <target state="final">Anwenden</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.constraints.depth.level0" approved="yes">
+        <source>This page</source>
+        <target state="final">Diese Seite</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.constraints.depth.level1" approved="yes">
+        <source>1 Level</source>
+        <target state="final">1 Ebene</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.constraints.depth.level2" approved="yes">
+        <source>2 Level</source>
+        <target state="final">2 Ebenen</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.constraints.depth.level3" approved="yes">
+        <source>3 Level</source>
+        <target state="final">3 Ebenen</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.page" approved="yes">
+        <source>Page</source>
+        <target state="final">Seite</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.amount" approved="yes">
+        <source>Comments</source>
+        <target state="final">Kommentare</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.actions" approved="yes">
+        <source>Actions</source>
+        <target state="final">Aktionen</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.visibility" approved="yes">
+        <source>Online</source>
+        <target state="final">Online</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.visibility.visible" approved="yes">
+        <source>visible</source>
+        <target state="final">sichtbar</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.visibility.hidden" approved="yes">
+        <source>hidden</source>
+        <target state="final">verborgen</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.action.publish" approved="yes">
+        <source>Publish</source>
+        <target state="final">Veröffentlichen</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.action.unpublish" approved="yes">
+        <source>Unpublish</source>
+        <target state="final">Veröffentlichung aufheben</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.action.delete.confirm" approved="yes">
+        <source>Are you sure you want to delete this comment?</source>
+        <target state="final">Sind Sie sich sicher, dass Sie diesen Kommentar löschen wollen?</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.noPageSelected" approved="yes">
+        <source>Please select a page.</source>
+        <target state="final">Bitte wählen Sie eine Seite aus.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
