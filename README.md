@@ -11,5 +11,5 @@ You can specify the displayed levels of the page tree, starting with the selecte
 
 The dashboard widget will show the latest 15 unmoderated (hidden) comments across all pages.
 
-install via composer `composer req neusta/modmod`
+install via composer `composer req teamneusta/modmod`
 
