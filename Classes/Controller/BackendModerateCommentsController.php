@@ -8,15 +8,17 @@ use Neusta\Modmod\Provider\FormValueProvider;
 use Neusta\Modmod\Provider\PagetreeProvider;
 use Neusta\Modmod\Utility\BackendUserUtility;
 use Neusta\Modmod\Utility\PagetreeUtility;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Routing\UriBuilder as BackendUriBuilder;
 use TYPO3\CMS\Core\Http\ServerRequestFactory;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 class BackendModerateCommentsController extends ActionController
 {
-    const CMD_PUBLISH = 'publish';
-    const CMD_UNPUBLISH = 'unpublish';
+    public const CMD_PUBLISH = 'publish';
+    public const CMD_UNPUBLISH = 'unpublish';
 
     private BackendUriBuilder $beUriBuilder;
 
@@ -38,7 +40,7 @@ class BackendModerateCommentsController extends ActionController
         $this->formValueProvider = $formValueProvider;
     }
 
-    public function indexAction(): void
+    public function indexAction(): ResponseInterface
     {
         $pageId = $this->getCurrentPageId();
         $depth = (int)$this->formValueProvider->getStoredValue($this->request->getPluginName(), 'depth');
@@ -64,9 +66,11 @@ class BackendModerateCommentsController extends ActionController
             'tree'            => $pageTree,
             'comments'        => $this->commentRepository->findByPageIds($uidList),
         ]);
+
+        return $this->htmlResponse();
     }
 
-    public function toggleVisibilityAction(): void
+    public function toggleVisibilityAction(): ResponseInterface
     {
         $commentUid = (int)($this->request->getArgument('comment') ?? 0);
         $action = $this->request->getArgument('command') ?? '';
@@ -80,16 +84,18 @@ class BackendModerateCommentsController extends ActionController
             default:
                 break;
         }
-        $this->forward('index');
+
+        return new ForwardResponse('index');
     }
 
-    public function deleteAction(): void
+    public function deleteAction(): ResponseInterface
     {
         $commentUid = (int)($this->request->getArgument('comment') ?? 0);
         if ($commentUid > 0) {
             $this->commentRepository->deleteComment($commentUid);
         }
-        $this->forward('index');
+
+        return new ForwardResponse('index');
     }
 
     protected function getCurrentPageId(): int

@@ -1,16 +1,20 @@
 <?php
+
+use Neusta\Modmod\Controller\BackendModerateCommentsController;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+
 if (!defined('TYPO3')) {
     die('Access denied.');
 }
 
 (static function (string $extKey): void {
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+    ExtensionUtility::registerModule(
         $extKey,
         'web',
         'Moderate',
         'after:info',
         [
-            \Neusta\Modmod\Controller\BackendModerateCommentsController::class => 'index, toggleVisibility, delete',
+            BackendModerateCommentsController::class => 'index, toggleVisibility, delete',
         ],
         [
             'access'                                   => 'user',
