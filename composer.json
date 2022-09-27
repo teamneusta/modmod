@@ -16,9 +16,9 @@
       "email": "t.kretschmann@neusta.de"
     }
   ],
-  "version": "2.0.0",
+  "version": "2.0.1",
   "require": {
-    "php": "~7.4",
+    "php": ">=7.4",
     "typo3/cms-core": "^11.5",
     "t3/pw_comments": "^5.2"
   },
