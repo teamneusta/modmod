@@ -38,7 +38,9 @@ class CommentRepository
                     $queryBuilder->createNamedParameter($pageIds, Connection::PARAM_INT_ARRAY),
                 ),
             )
-            ->orderBy('hidden', 'DESC')->addOrderBy('crdate', 'DESC')->executeQuery()
+            ->orderBy('hidden', 'DESC')
+            ->addOrderBy('crdate', 'DESC')
+            ->executeQuery()
             ->fetchAllAssociative();
 
         $result = [];
@@ -65,7 +67,9 @@ class CommentRepository
             ->where(
                 $queryBuilder->expr()->eq('hidden', 1),
             )
-            ->orderBy('crdate', 'DESC')->setMaxResults($amount)->executeQuery()
+            ->orderBy('crdate', 'DESC')
+            ->setMaxResults($amount)
+            ->executeQuery()
             ->fetchAllAssociative();
     }
 
@@ -76,10 +80,14 @@ class CommentRepository
         $queryBuilder->getRestrictions()->removeByType(HiddenRestriction::class);
 
         $queryBuilder->update(self::TABLE)
-            ->set('hidden', '0')->where($queryBuilder->expr()->eq(
-            'uid',
-            $queryBuilder->createNamedParameter($commentUid, PDO::PARAM_INT),
-        ))->executeStatement();
+            ->set('hidden', '0')
+            ->where(
+                $queryBuilder->expr()->eq(
+                    'uid',
+                    $queryBuilder->createNamedParameter($commentUid, PDO::PARAM_INT),
+                )
+            )
+            ->executeStatement();
     }
 
     public function deleteComment(int $commentUid): void
@@ -89,10 +97,14 @@ class CommentRepository
         $queryBuilder->getRestrictions()->removeByType(HiddenRestriction::class);
 
         $queryBuilder->update(self::TABLE)
-            ->set('deleted', '1')->where($queryBuilder->expr()->eq(
-            'uid',
-            $queryBuilder->createNamedParameter($commentUid, PDO::PARAM_INT),
-        ))->executeStatement();
+            ->set('deleted', '1')
+            ->where(
+                $queryBuilder->expr()->eq(
+                    'uid',
+                    $queryBuilder->createNamedParameter($commentUid, PDO::PARAM_INT),
+                )
+            )
+            ->executeStatement();
     }
 
     public function unpublishComment(int $commentUid): void
@@ -102,9 +114,13 @@ class CommentRepository
         $queryBuilder->getRestrictions()->removeByType(HiddenRestriction::class);
 
         $queryBuilder->update(self::TABLE)
-            ->set('hidden', '1')->where($queryBuilder->expr()->eq(
-            'uid',
-            $queryBuilder->createNamedParameter($commentUid, PDO::PARAM_INT),
-        ))->executeStatement();
+            ->set('hidden', '1')
+            ->where(
+                $queryBuilder->expr()->eq(
+                    'uid',
+                    $queryBuilder->createNamedParameter($commentUid, PDO::PARAM_INT),
+                )
+            )
+            ->executeStatement();
     }
 }
