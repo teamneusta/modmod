@@ -10,11 +10,14 @@ use Neusta\Modmod\Utility\BackendUserUtility;
 use Neusta\Modmod\Utility\PagetreeUtility;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Backend\Attribute\Controller;
 use TYPO3\CMS\Backend\Routing\UriBuilder as BackendUriBuilder;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Http\ServerRequestFactory;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
+#[Controller]
 class BackendModerateCommentsController extends ActionController
 {
     public const CMD_PUBLISH = 'publish';
@@ -32,7 +35,8 @@ class BackendModerateCommentsController extends ActionController
         PagetreeProvider $pageProvider,
         FormValueProvider $formValueProvider,
         CommentRepository $commentRepository,
-        BackendUriBuilder $uriBuilder
+        BackendUriBuilder $uriBuilder,
+        private ModuleTemplateFactory $moduleTemplateFactory,
     ) {
         $this->pageProvider = $pageProvider;
         $this->commentRepository = $commentRepository;
@@ -45,10 +49,10 @@ class BackendModerateCommentsController extends ActionController
         $pageId = $this->getCurrentPageId();
         $depth = (int)$this->formValueProvider->getStoredValue($this->request->getPluginName(), 'depth');
         $pageTree = $this->pageProvider->getPageTree($pageId ?? 0, $depth);
-
+        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
         $uidList = PagetreeUtility::getPageIdArray($pageTree);
 
-        $this->view->assignMultiple([
+        $moduleTemplate->assignMultiple([
             'moduleName'      => $this->request->getPluginName(),
             'moduleUri'       => (string)$this->beUriBuilder->buildUriFromRoute(
                 $this->request->getPluginName(),
@@ -67,7 +71,7 @@ class BackendModerateCommentsController extends ActionController
             'comments'        => $this->commentRepository->findByPageIds($uidList),
         ]);
 
-        return $this->htmlResponse();
+        return $moduleTemplate->renderResponse('Index');
     }
 
     public function toggleVisibilityAction(): ResponseInterface

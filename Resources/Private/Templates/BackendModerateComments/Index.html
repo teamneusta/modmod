@@ -1,82 +1,82 @@
-<f:be.container
+<f:be.pageRenderer
         includeRequireJsModules="{0:'TYPO3/CMS/Backend/Modal'}"
         includeCssFiles="{0: '{f:uri.resource(path:\'CSS/list-mod.css\')}'}"
->
-    <div class="module" data-module-name="{moduleName}">
-        <div class="module-loading-indicator"></div>
-        <div class="module-docheader">
-            <div class="module-docheader-bar module-docheader-bar-buttons">
-                <div class="module-docheader-bar-column-left">
-                    <div class="btn-toolbar" role="toolbar" aria-label="">
-                    </div>
+/>
+<div class="module" data-module-name="{moduleName}">
+    <div class="module-loading-indicator"></div>
+    <div class="module-docheader">
+        <div class="module-docheader-bar module-docheader-bar-buttons">
+            <div class="module-docheader-bar-column-left">
+                <div class="btn-toolbar" role="toolbar" aria-label="">
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="module-body t3js-module-body">
-            <div class="constraints">
-                <f:be.pageRenderer includeRequireJsModules="{0: 'TYPO3/CMS/Backend/DateTimePicker'}" />
-                <form action=""
-                      method="post"
-                      id="BackendModerateCommentsController"
-                      name="webCommentsModerateForm"
-                      class="form-inline form-inline-spaced">
-                    <div class="form-group">
-                        <label class="form-label" for="depth">{f:translate(key: 'mod.modmod.constraints.depth')}</label>
-                        <f:form.select
-                                name="depth"
-                                id="depth"
-                                options="{
-                                            0: '{f:translate(key: \'mod.modmod.constraints.depth.level0\')}',
-                                            1: '{f:translate(key: \'mod.modmod.constraints.depth.level1\')}',
-                                            2: '{f:translate(key: \'mod.modmod.constraints.depth.level2\')}',
-                                            3: '{f:translate(key: \'mod.modmod.constraints.depth.level3\')}'
-                                        }"
+    <div class="module-body t3js-module-body">
+        <div class="constraints">
+            <f:be.pageRenderer includeRequireJsModules="{0: 'TYPO3/CMS/Backend/DateTimePicker'}" />
+            <form action=""
+                  method="post"
+                  id="BackendModerateCommentsController"
+                  name="webCommentsModerateForm"
+                  class="form-inline form-inline-spaced">
+                <div class="form-group">
+                    <label class="form-label" for="depth">{f:translate(key: 'mod.modmod.constraints.depth')}</label>
+                    <f:form.select
+                            name="depth"
+                            id="depth"
+                            options="{
+                                        0: '{f:translate(key: \'mod.modmod.constraints.depth.level0\')}',
+                                        1: '{f:translate(key: \'mod.modmod.constraints.depth.level1\')}',
+                                        2: '{f:translate(key: \'mod.modmod.constraints.depth.level2\')}',
+                                        3: '{f:translate(key: \'mod.modmod.constraints.depth.level3\')}'
+                                    }"
 
-                                value="{constraints.depth}"
-                                class="form-control"
-                        />
-                    </div>
-                    <div class="form-group">
-                        <f:form.submit id="submit-constraint" value="{f:translate(key: 'mod.modmod.constraints.apply')}" class="btn btn-default" />
-                    </div>
-                </form>
-
-            </div>
-
-            <f:if condition="{tree -> f:count()} > 1">
-                <f:then>
-                    <div class="table-fit">
-                        <table class="table table-striped table-hover" id="moderateCommentsTable">
-                            <thead>
-                            <tr>
-                                <th>{f:translate(key: 'mod.modmod.page')}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <f:variable name="depth" value="0" />
-                            <f:render section="renderTreeLevel"
-                                      arguments="{
-                                  treeLevel: tree,
-                                  depth: depth,
-                                  addPageIdPrefix: addPageIdPrefix,
-                                  comments: comments,
-                                  tableName: tableName,
-                                  moduleUri: moduleUri,
-                                  commands: commands
-                              }" />
-                            </tbody>
-                        </table>
-                    </div>
-                </f:then>
-                <f:else>
-                    <f:translate key="mod.modmod.noPageSelected" />
-                </f:else>
-            </f:if>
+                            value="{constraints.depth}"
+                            class="form-control"
+                    />
+                </div>
+                <div class="form-group">
+                    <f:form.submit id="submit-constraint" value="{f:translate(key: 'mod.modmod.constraints.apply')}" name="submit" class="btn btn-default" />
+                </div>
+            </form>
 
         </div>
+
+        <f:if condition="{tree -> f:count()} > 1">
+            <f:then>
+                <div class="table-fit">
+                    <table class="table table-striped table-hover" id="moderateCommentsTable">
+                        <thead>
+                        <tr>
+                            <th>{f:translate(key: 'mod.modmod.page')}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <f:variable name="depth" value="0" />
+                        <f:render section="renderTreeLevel"
+                                  arguments="{
+                              treeLevel: tree,
+                              depth: depth,
+                              addPageIdPrefix: addPageIdPrefix,
+                              comments: comments,
+                              tableName: tableName,
+                              moduleUri: moduleUri,
+                              commands: commands
+                          }" />
+                        </tbody>
+                    </table>
+                </div>
+            </f:then>
+            <f:else>
+                <f:translate key="mod.modmod.noPageSelected" />
+            </f:else>
+        </f:if>
+
     </div>
-</f:be.container>
+</div>
+
 <f:section name="renderTreeLevel">
     <f:variable name="commentCount">
         <f:count>{comments.{treeLevel.uid}}</f:count>
@@ -149,12 +149,12 @@
                                     <f:if condition="{comment.hidden}">
                                         <f:then>
                                             <td class="col-visibility" title="{f:translate(key: 'mod.modmod.visibility.hidden')}">
-                                                <core:icon identifier="actions-close" size="default" />
+                                                <core:icon identifier="actions-close" size="medium" />
                                             </td>
                                         </f:then>
                                         <f:else>
                                             <td class="col-visibility" title="{f:translate(key: 'mod.modmod.visibility.visible')}">
-                                                <span class="success"><core:icon identifier="actions-check" size="default" alternativeMarkupIdentifier="inline" /></span>
+                                                <span class="success"><core:icon identifier="actions-check" size="medium" alternativeMarkupIdentifier="inline" /></span>
                                             </td>
                                         </f:else>
                                     </f:if>

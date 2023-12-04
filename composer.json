@@ -14,13 +14,18 @@
       "name": "Tobias Kretschmann",
       "role": "Developer",
       "email": "t.kretschmann@neusta.de"
+    },
+    {
+      "name": "Malek Olabi",
+      "role": "Developer",
+      "email": "m.olabi@neusta.de"
     }
   ],
-  "version": "2.0.1",
+  "version": "3.0.0",
   "require": {
-    "php": ">=7.4",
-    "typo3/cms-core": "^11.5",
-    "t3/pw_comments": "^5.2"
+    "php": ">=8.1",
+    "typo3/cms-core": "^11.5 || ^12.4",
+    "teamneusta/pw_comments": "^6.0"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest"

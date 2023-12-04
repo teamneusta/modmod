@@ -40,7 +40,7 @@ class CommentRepository
             )
             ->orderBy('hidden', 'DESC')
             ->addOrderBy('crdate', 'DESC')
-            ->execute()
+            ->executeQuery()
             ->fetchAllAssociative();
 
         $result = [];
@@ -69,7 +69,7 @@ class CommentRepository
             )
             ->orderBy('crdate', 'DESC')
             ->setMaxResults($amount)
-            ->execute()
+            ->executeQuery()
             ->fetchAllAssociative();
     }
 
@@ -85,8 +85,9 @@ class CommentRepository
                 $queryBuilder->expr()->eq(
                     'uid',
                     $queryBuilder->createNamedParameter($commentUid, PDO::PARAM_INT),
-                ),
-            )->execute();
+                )
+            )
+            ->executeStatement();
     }
 
     public function deleteComment(int $commentUid): void
@@ -101,8 +102,9 @@ class CommentRepository
                 $queryBuilder->expr()->eq(
                     'uid',
                     $queryBuilder->createNamedParameter($commentUid, PDO::PARAM_INT),
-                ),
-            )->execute();
+                )
+            )
+            ->executeStatement();
     }
 
     public function unpublishComment(int $commentUid): void
@@ -117,7 +119,8 @@ class CommentRepository
                 $queryBuilder->expr()->eq(
                     'uid',
                     $queryBuilder->createNamedParameter($commentUid, PDO::PARAM_INT),
-                ),
-            )->execute();
+                )
+            )
+            ->executeStatement();
     }
 }
