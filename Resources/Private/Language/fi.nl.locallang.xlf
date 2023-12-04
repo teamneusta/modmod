@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" product-name="modmod_widgets" target-language="fi">
+    <header/>
+    <body>
+      <trans-unit id="mlang_tabs_tab" resname="mlang_tabs_tab">
+        <source>Comments</source>
+        <target state="needs-translation">Comments</target>
+      </trans-unit>
+      <trans-unit id="mlang_labels_tablabel" resname="mlang_labels_tablabel">
+        <source>Comments</source>
+        <target state="needs-translation">Comments</target>
+      </trans-unit>
+      <trans-unit id="mlang_labels_tabdescr" resname="mlang_labels_tabdescr">
+        <source>Moderate Comments from pw_comments extension</source>
+        <target state="needs-translation">Moderate Comments from pw_comments extension</target>
+      </trans-unit>
+      <trans-unit id="neustaGroup.title">
+        <source>neusta widgets</source>
+        <target state="needs-translation">neusta widgets</target>
+      </trans-unit>
+      <trans-unit id="widgets.neustmoderate_pwComments_list.title">
+        <source>Moderate Comments</source>
+        <target state="needs-translation">Moderate Comments</target>
+      </trans-unit>
+      <trans-unit id="widgets.neustmoderate_pwComments_list.description">
+        <source>Adds an overview of new and hidden comments</source>
+        <target state="needs-translation">Adds an overview of new and hidden comments</target>
+      </trans-unit>
+      <trans-unit id="widget.modmod.noResults">
+        <source>No unmoderated comments! Good job! 👍</source>
+        <target state="needs-translation">No unmoderated comments! Good job! 👍</target>
+      </trans-unit>
+      <trans-unit id="widget.modmod.dateFormat">
+        <source>D d.m.Y H:i:s</source>
+        <target state="needs-translation">D d.m.Y H:i:s</target>
+      </trans-unit>
+      <trans-unit id="widget.modmod.openInModule">
+        <source>Continue moderating in module.</source>
+        <target state="needs-translation">Continue moderating in module.</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.constraints.depth">
+        <source>Depth</source>
+        <target state="needs-translation">Depth</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.constraints.apply">
+        <source>Apply</source>
+        <target state="needs-translation">Apply</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.constraints.depth.level0">
+        <source>This page</source>
+        <target state="needs-translation">This page</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.constraints.depth.level1">
+        <source>1 Level</source>
+        <target state="needs-translation">1 Level</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.constraints.depth.level2">
+        <source>2 Level</source>
+        <target state="needs-translation">2 Level</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.constraints.depth.level3">
+        <source>3 Level</source>
+        <target state="needs-translation">3 Level</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.page">
+        <source>Page</source>
+        <target state="needs-translation">Page</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.amount">
+        <source>Comments</source>
+        <target state="needs-translation">Comments</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.actions">
+        <source>Actions</source>
+        <target state="needs-translation">Actions</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.visibility">
+        <source>Online</source>
+        <target state="needs-translation">Online</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.visibility.visible">
+        <source>visible</source>
+        <target state="needs-translation">visible</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.visibility.hidden">
+        <source>hidden</source>
+        <target state="needs-translation">hidden</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.action.publish">
+        <source>Publish</source>
+        <target state="needs-translation">Publish</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.action.unpublish">
+        <source>Unpublish</source>
+        <target state="needs-translation">Unpublish</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.action.delete.confirm">
+        <source>Are you sure you want to delete this comment?</source>
+        <target state="needs-translation">Are you sure you want to delete this comment?</target>
+      </trans-unit>
+      <trans-unit id="mod.modmod.noPageSelected">
+        <source>Please select a page.</source>
+        <target state="needs-translation">Please select a page.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
