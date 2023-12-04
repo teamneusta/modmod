@@ -25,7 +25,7 @@ final class LatestCommentsWidget implements WidgetInterface, AdditionalCssInterf
     {
         $this->view->setTemplate('Widgets/NewCommentsWidget');
         $this->view->assignMultiple([
-            'moduleName'    => 'web_ModmodModerate',
+            'moduleName'    => 'web_modmod',
             'items'         => $this->getItems(),
             'configuration' => $this->configuration,
         ]);
