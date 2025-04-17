@@ -25,6 +25,8 @@ final class PagetreeProvider
     {
         $startingPage = BackendUtility::getRecord('pages', $startingUid) ?? [];
 
-        return $this->pageTreeRepository->getTreeLevels($startingPage, $depth);
+        return empty($startingPage)
+            ? []
+            : $this->pageTreeRepository->getTreeLevels($startingPage, $depth);
     }
 }

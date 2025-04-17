@@ -48,7 +48,7 @@ class BackendModerateCommentsController extends ActionController
     {
         $pageId = $this->getCurrentPageId();
         $depth = (int)$this->formValueProvider->getStoredValue($this->request->getPluginName(), 'depth');
-        $pageTree = $this->pageProvider->getPageTree($pageId ?? 1, $depth);
+        $pageTree = $this->pageProvider->getPageTree($pageId, $depth);
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
         $uidList = PagetreeUtility::getPageIdArray($pageTree);
 
@@ -104,7 +104,9 @@ class BackendModerateCommentsController extends ActionController
 
     protected function getCurrentPageId(): int
     {
-        return (int)($this->getRequest()->getQueryParams()['id'] ?? 0);
+        $pageId = (int) $this->getRequest()->getQueryParams()['id'];
+
+        return $pageId === 0 ? 1 : $pageId;
     }
 
     private function getRequest(): ServerRequestInterface
