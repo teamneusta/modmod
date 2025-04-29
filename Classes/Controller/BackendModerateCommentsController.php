@@ -104,7 +104,7 @@ class BackendModerateCommentsController extends ActionController
 
     protected function getCurrentPageId(): int
     {
-        $pageId = (int) $this->getRequest()->getQueryParams()['id'];
+        $pageId = (int) $this->getRequest()->getQueryParams()['id'] ?? 0;
 
         return $pageId === 0 ? 1 : $pageId;
     }
