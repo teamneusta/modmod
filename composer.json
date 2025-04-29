@@ -21,7 +21,7 @@
       "email": "m.olabi@neusta.de"
     }
   ],
-  "version": "3.0.2",
+  "version": "3.0.3",
   "require": {
     "php": ">=8.1",
     "typo3/cms-core": "^11.5 || ^12.4",
