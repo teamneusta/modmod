@@ -4,13 +4,12 @@ declare(strict_types = 1);
 namespace Neusta\Modmod\Tests\Unit\Utility;
 
 use Neusta\Modmod\Utility\PagetreeUtility;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\TestCase;
 
-final class PagetreeUtilityTest extends UnitTestCase
+final class PagetreeUtilityTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function getPageIdArrayShouldReturnListOfPageUidsFromGivenPagetreeWithChildren(): void
     {
         $pageTree = [

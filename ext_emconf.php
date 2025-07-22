@@ -5,7 +5,7 @@ $EM_CONF[$_EXTKEY] = [
     'category'         => 'extension',
     'constraints'      => [
         'depends'   => [
-            'typo3' => '12.4.0-12.99.99',
+            'typo3' => '13.4.0-13.99.99',
         ],
         'conflicts' => [
         ],
@@ -24,5 +24,5 @@ $EM_CONF[$_EXTKEY] = [
     'author'           => 'Tobias Kretschmann',
     'author_email'     => 't.kretschmann@neusta.de',
     'author_company'   => 'team neusta GmbH',
-    'version'          => '3.0.0',
+    'version'          => '4.0.0',
 ];

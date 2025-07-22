@@ -10,8 +10,6 @@ use TYPO3\CMS\Core\Http\ServerRequestFactory;
 final class FormValueProvider implements FormValueProviderInterface
 {
     /**
-     * @param string $pluginName
-     * @param string $name
      *
      * @return mixed
      */
@@ -27,9 +25,7 @@ final class FormValueProvider implements FormValueProviderInterface
     }
 
     /**
-     * @param string $formFieldName
      * @param mixed  $default
-     *
      * @return mixed
      */
     private function getValueFromPostRequest(string $formFieldName, $default = '')

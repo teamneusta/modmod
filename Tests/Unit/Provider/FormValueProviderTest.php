@@ -4,27 +4,21 @@ declare(strict_types = 1);
 namespace Neusta\Modmod\Tests\Unit\Provider;
 
 use Neusta\Modmod\Provider\FormValueProvider;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Http\ServerRequest;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-final class FormValueProviderTest extends UnitTestCase
+final class FormValueProviderTest extends TestCase
 {
-    use ProphecyTrait;
-
     protected string $pluginNamespace = 'modmod';
 
     protected function tearDown(): void
     {
-        parent::tearDown();
         unset($GLOBALS['BE_USER'], $GLOBALS['TYPO3_REQUEST']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getStoredValueShouldReturnEmptyStringIfNeitherPostNorStoredValueFound(): void
     {
         $ucValueName = 'setting';
@@ -33,16 +27,16 @@ final class FormValueProviderTest extends UnitTestCase
         $GLOBALS['TYPO3_REQUEST'] = (new ServerRequest())->withParsedBody(null);
 
         $beUser = $this->prepareBeUserWithConfig($ucValueName, $ucStoredValue);
-        $beUser->pushModuleData(Argument::any())->shouldNotBeCalled();
+        $beUser
+            ->expects($this->never())
+            ->method('pushModuleData');
 
         $formValueProvider = new FormValueProvider();
 
         self::assertSame('', $formValueProvider->getStoredValue($this->pluginNamespace, $ucValueName));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getStoredValueShouldReturnUserConfigIfNoPostValueFound(): void
     {
         $ucValueName = 'setting';
@@ -51,16 +45,16 @@ final class FormValueProviderTest extends UnitTestCase
         $GLOBALS['TYPO3_REQUEST'] = (new ServerRequest())->withParsedBody(null);
 
         $beUser = $this->prepareBeUserWithConfig($ucValueName, $ucStoredValue);
-        $beUser->pushModuleData(Argument::any())->shouldNotBeCalled();
+        $beUser
+            ->expects($this->never())
+            ->method('pushModuleData');
 
         $formValueProvider = new FormValueProvider();
 
         self::assertSame($ucStoredValue, $formValueProvider->getStoredValue($this->pluginNamespace, $ucValueName));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getStoredValueShouldReturnPostRequestValieAndStoreItInUserConfig(): void
     {
         $ucValueName = 'setting';
@@ -69,16 +63,17 @@ final class FormValueProviderTest extends UnitTestCase
 
         $this->prepareServerRequestWithParsedBody($ucValueName, $postRequestValue);
         $beUser = $this->prepareBeUserWithConfig($ucValueName, $ucStoredValue);
-        $beUser->pushModuleData($this->pluginNamespace, [$ucValueName => $postRequestValue])->shouldBeCalled();
+        $beUser
+            ->expects($this->once())
+            ->method('pushModuleData')
+            ->with($this->pluginNamespace, [$ucValueName => $postRequestValue]);
 
         $formValueProvider = new FormValueProvider();
 
         self::assertSame($postRequestValue, $formValueProvider->getStoredValue($this->pluginNamespace, $ucValueName));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getStoredValueShouldNotStoreValueIfUserConfigAndPostRequestAreSame(): void
     {
         $ucValueName = 'setting';
@@ -87,7 +82,9 @@ final class FormValueProviderTest extends UnitTestCase
 
         $this->prepareServerRequestWithParsedBody($ucValueName, $postRequestValue);
         $beUser = $this->prepareBeUserWithConfig($ucValueName, $ucStoredValue);
-        $beUser->pushModuleData(Argument::any())->shouldNotBeCalled();
+        $beUser
+            ->expects($this->never())
+            ->method('pushModuleData');
         $formValueProvider = new FormValueProvider();
 
         self::assertSame('sameValue', $formValueProvider->getStoredValue($this->pluginNamespace, $ucValueName));
@@ -98,10 +95,10 @@ final class FormValueProviderTest extends UnitTestCase
         $GLOBALS['TYPO3_REQUEST'] = (new ServerRequest())->withParsedBody([$ucValueName => $postRequestValue]);
     }
 
-    private function prepareBeUserWithConfig(string $key, string $readValue)
+    private function prepareBeUserWithConfig(string $key, string $readValue): MockObject|BackendUserAuthentication
     {
-        $beUser = $this->prophesize(BackendUserAuthentication::class);
-        $GLOBALS['BE_USER'] = $beUser->reveal();
+        $beUser = $this->createMock(BackendUserAuthentication::class);
+        $GLOBALS['BE_USER'] = $beUser;
         $GLOBALS['BE_USER']->uc['moduleData'][$this->pluginNamespace][$key] = $readValue;
 
         return $beUser;
