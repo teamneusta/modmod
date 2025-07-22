@@ -52,8 +52,6 @@ class CommentRepository
     }
 
     /**
-     * @param int $amount
-     *
      * @return array|array[]
      */
     public function findLatestUnmoderated(int $amount): array
@@ -84,7 +82,7 @@ class CommentRepository
             ->where(
                 $queryBuilder->expr()->eq(
                     'uid',
-                    $queryBuilder->createNamedParameter($commentUid, PDO::PARAM_INT),
+                    $queryBuilder->createNamedParameter($commentUid, Connection::PARAM_INT),
                 )
             )
             ->executeStatement();
@@ -101,7 +99,7 @@ class CommentRepository
             ->where(
                 $queryBuilder->expr()->eq(
                     'uid',
-                    $queryBuilder->createNamedParameter($commentUid, PDO::PARAM_INT),
+                    $queryBuilder->createNamedParameter($commentUid, Connection::PARAM_INT),
                 )
             )
             ->executeStatement();
@@ -118,7 +116,7 @@ class CommentRepository
             ->where(
                 $queryBuilder->expr()->eq(
                     'uid',
-                    $queryBuilder->createNamedParameter($commentUid, PDO::PARAM_INT),
+                    $queryBuilder->createNamedParameter($commentUid, Connection::PARAM_INT),
                 )
             )
             ->executeStatement();

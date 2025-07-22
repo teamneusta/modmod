@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo "navigation to target folder"
+cd /var/www/modmod
+
+echo "disabling xdebug"
+disable_xdebug
+
+echo "running unit tests"
+XDEBUG_MODE=coverage ./vendor/bin/phpunit -c Build/phpunit.xml

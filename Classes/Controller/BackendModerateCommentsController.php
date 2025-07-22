@@ -10,14 +10,14 @@ use Neusta\Modmod\Utility\BackendUserUtility;
 use Neusta\Modmod\Utility\PagetreeUtility;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use TYPO3\CMS\Backend\Attribute\Controller;
+use TYPO3\CMS\Backend\Attribute\AsController;
 use TYPO3\CMS\Backend\Routing\UriBuilder as BackendUriBuilder;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Http\ServerRequestFactory;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
-#[Controller]
+#[AsController]
 class BackendModerateCommentsController extends ActionController
 {
     public const CMD_PUBLISH = 'publish';
@@ -36,7 +36,7 @@ class BackendModerateCommentsController extends ActionController
         FormValueProvider $formValueProvider,
         CommentRepository $commentRepository,
         BackendUriBuilder $uriBuilder,
-        private ModuleTemplateFactory $moduleTemplateFactory,
+        private readonly ModuleTemplateFactory $moduleTemplateFactory,
     ) {
         $this->pageProvider = $pageProvider;
         $this->commentRepository = $commentRepository;
@@ -71,7 +71,7 @@ class BackendModerateCommentsController extends ActionController
             'comments'        => $this->commentRepository->findByPageIds($uidList),
         ]);
 
-        return $moduleTemplate->renderResponse('Index');
+        return $moduleTemplate->renderResponse('BackendModerateComments/Index');
     }
 
     public function toggleVisibilityAction(): ResponseInterface

@@ -18,7 +18,6 @@ services:
     class: 'Neusta\Modmod\Widgets\LatestCommentsWidget'
     arguments:
       $dataProvider: '@Neusta\Modmod\Widgets\Provider\LatestCommentsDataProvider'
-      $view: '@dashboard.views.widget'
       $options: []
     tags:
       - name: dashboard.widget

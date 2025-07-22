@@ -16,8 +16,6 @@ final class PagetreeProvider
     }
 
     /**
-     * @param int $startingUid
-     * @param int $depth
      *
      * @return array<string, mixed>
      */

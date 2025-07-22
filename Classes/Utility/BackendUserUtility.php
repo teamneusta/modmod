@@ -9,8 +9,6 @@ final class BackendUserUtility
 {
 
     /**
-     * @param string $pluginName
-     * @param string $key
      *
      * @return mixed|null
      */
@@ -22,7 +20,6 @@ final class BackendUserUtility
     }
 
     /**
-     * @param string $pluginName
      * @param mixed  $value
      */
     public static function storeUcValue(string $pluginName, $value): void

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phive xmlns="https://phar.io/phive">
+  <phar name="martin-helmich/typo3-typoscript-lint" version="^3.2.1" installed="3.2.1" location="./tools/typoscript-lint" copy="true"/>
+  <phar name="phpstan" version="^2.1.17" installed="2.1.17" location="./tools/phpstan" copy="true"/>
+  <phar name="php-cs-fixer" version="^3.82.1" installed="3.82.1" location="./tools/php-cs-fixer" copy="true"/>
+</phive>

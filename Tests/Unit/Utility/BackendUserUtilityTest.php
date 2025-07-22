@@ -3,15 +3,15 @@ declare(strict_types = 1);
 
 namespace Neusta\Modmod\Tests\Unit\Utility;
 
+use Generator;
 use Neusta\Modmod\Utility\BackendUserUtility;
-use Prophecy\PhpUnit\ProphecyTrait;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-final class BackendUserUtilityTest extends UnitTestCase
+final class BackendUserUtilityTest extends TestCase
 {
-    use ProphecyTrait;
-
     protected string $pluginNamespace = 'modmod';
 
     protected function tearDown(): void
@@ -20,9 +20,7 @@ final class BackendUserUtilityTest extends UnitTestCase
         unset($GLOBALS['BE_USER']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getValueFromBackendUserConfigShouldReturnValueForGivenKeyInGivenPluginNamespace(): void
     {
         $GLOBALS['BE_USER'] = new BackendUserAuthentication();
@@ -31,17 +29,76 @@ final class BackendUserUtilityTest extends UnitTestCase
         self::assertSame('bar', BackendUserUtility::getValueFromBackendUserConfig($this->pluginNamespace, 'foo'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function storeUcValueShouldWriteGivenValueInUserConfigWithGivenPluginNamespace(): void
     {
         $valueToStore = ['user' => 'setting'];
 
-        $beUser = $this->prophesize(BackendUserAuthentication::class);
-        $beUser->pushModuleData($this->pluginNamespace, $valueToStore)->shouldBeCalled();
-        $GLOBALS['BE_USER'] = $beUser->reveal();
+        $beUser = $this->createMock(BackendUserAuthentication::class);
+        $beUser
+            ->expects($this->once())
+            ->method('pushModuleData')
+            ->with($this->pluginNamespace, $valueToStore);
+        $GLOBALS['BE_USER'] = $beUser;
 
         BackendUserUtility::storeUcValue($this->pluginNamespace, $valueToStore);
+    }
+    
+    #[Test]
+    #[DataProvider('getShowPageIdWithTitleOptionDataProvider')]
+    public function getShowPageIdWithTitleOptionShouldReturnIfShowPageIdWithTitleOptionIsSetInTsConfig(array $tsConfig, bool $expectedShowPageIdWithTitleOption): void
+    {
+        $beUser = $this->createMock(BackendUserAuthentication::class);
+        $beUser
+            ->expects($this->once())
+            ->method('getTSConfig')
+            ->willReturn($tsConfig);
+        $GLOBALS['BE_USER'] = $beUser;
+
+        self::assertSame($expectedShowPageIdWithTitleOption, BackendUserUtility::getShowPageIdWithTitleOption());
+    }
+
+    public static function getShowPageIdWithTitleOptionDataProvider(): Generator
+    {
+        yield 'valid showPageIdWithTitle with true value' => [
+            [
+                'options.' => [
+                    'pageTree.' => [
+                        'showPageIdWithTitle' => true,
+                    ],
+                ],
+            ],
+            true,
+        ];
+        yield 'valid showPageIdWithTitle with false value' => [
+            [
+                'options.' => [
+                    'pageTree.' => [
+                        'showPageIdWithTitle' => false,
+                    ],
+                ],
+            ],
+            false
+        ];
+        yield 'valid showPageIdWithTitle with empty value' => [
+            [
+                'options.' => [
+                    'pageTree.' => [
+                        'showPageIdWithTitle' => '',
+                    ],
+                ],
+            ],
+            false
+        ];
+        yield 'showPageIdWithTitle option missing' => [
+            [
+                'options.' => [
+                    'pageTree.' => [
+                    ],
+                ],
+            ],
+            false
+        ];
+        yield 'empty options' => [[], false];
     }
 }
