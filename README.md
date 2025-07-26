@@ -1,8 +1,8 @@
 # modmod for pw_comments
 
-This extension provides a dashboard widget and a web module to moderate comments for t3/pw_comments.
+This extension provides a dashboard widget and a web module to moderate comments for teamneusta/pw_comments.
 
-Obviously you need the t3/pw_comments extension. Other than that you are good to go.
+Obviously you need the teamneusta/pw_comments extension. Other than that you are good to go.
 
 
 Installing this extension will add a backend module to the web section.
